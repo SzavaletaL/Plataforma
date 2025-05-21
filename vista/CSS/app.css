@@ -1,0 +1,124 @@
+/* Estilos generales */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+}
+
+/* Panel principal */
+.panel {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Texto centrado */
+.text-center {
+    text-align: center;
+}
+
+/* Formularios */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border 0.3s;
+}
+
+.form-control:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+/* Botones */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+.btn:hover {
+    background: #45a049;
+}
+
+.btn-cancelar {
+    background: #f44336;
+    margin-left: 10px;
+}
+
+.btn-cancelar:hover {
+    background: #d32f2f;
+}
+
+/* Tablas */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+tr:hover {
+    background-color: #f5f5f5;
+}
+
+/* Footer */
+.footer {
+    background: #333;
+    color: white;
+    padding: 20px 0;
+    margin-top: 40px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .panel {
+        margin: 10px;
+        padding: 15px;
+    }
+    
+    .btn {
+        display: block;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    
+    .btn-cancelar {
+        margin-left: 0;
+    }
+}
