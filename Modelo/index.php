@@ -23,25 +23,26 @@ class Modelo
     }
 
     // Método para mostrar datos
-    public function mostrar($tabla, $condicion)
-    {
-        $this->datos = array();
-        $consul = "SELECT * FROM " . $tabla . " WHERE " . $condicion . ";";
-        $resu = $this->db->query($consul);
+public function mostrar($tabla, $condicion = '1')
+{
+    $consul = "SELECT * FROM $tabla WHERE $condicion";
+    $resu = $this->db->query($consul);
+    return $resu->fetchAll(PDO::FETCH_ASSOC);
+}
 
-        while ($filas = $resu->fetchAll(PDO::FETCH_ASSOC)) {
-            $this->datos[] = $filas;
-        }
-        return $this->datos;
-    }
 
     // Método para actualizar datos
     public function actualizar($tabla, $data, $condicion)
     {
-        $consulta = "UPDATE " . $tabla . " SET " . $data . " WHERE " . $condicion;
-        $resultado = $this->db->query($consulta);
-        return $resultado ? true : false;
+    $consulta = "UPDATE $tabla SET $data WHERE $condicion";
+    $stmt = $this->db->prepare($consulta);
+
+    foreach ($valores as $campo => $valor) {
+        $stmt->bindValue(':' . $campo, $valor);
     }
+
+    return $stmt->execute();
+}
 
     // Método para eliminar datos
     public function eliminar($tabla, $condicion)
