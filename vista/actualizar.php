@@ -1,4 +1,4 @@
-<?php include_once "layouts/header.php"; ?>
+<?php include_once "layout/header.php"; ?>
 
 <div class="container">
   <h2>Editar Producto</h2>
@@ -16,4 +16,4 @@
   </form>
 </div>
 
-<?php include_once "layouts/footer.php"; ?>
+<?php include_once "layout/footer.php"; ?>

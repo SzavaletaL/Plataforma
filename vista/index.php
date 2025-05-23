@@ -1,4 +1,4 @@
-<?php include_once "layouts/header.php"; ?>
+<?php include_once "layout/header.php"; ?>
 
 <div class="container">
   <h1>Lista de Productos</h1>
@@ -30,4 +30,4 @@
   </table>
 </div>
 
-<?php include_once "layouts/footer.php"; ?>
+<?php include_once "layout/footer.php"; ?>

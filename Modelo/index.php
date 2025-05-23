@@ -10,7 +10,7 @@ class Modelo
     public function __construct()
     {
         $this->Modelo = array();
-        $this->db = new PDO('mysql:host=dataepis.uandina.pe;dbname=BDProductos', "luissalas", "luissalas2025");
+        $this->db = new PDO('mysql:host=dataepis.uandina.pe:49206;dbname=BDProductos', "luissalas", "luissalas2025");
         $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
