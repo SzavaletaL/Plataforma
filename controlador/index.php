@@ -16,7 +16,7 @@ class modeloController
     static function index()
     {
         $producto = new Modelo();
-        $productos = $producto->mostrar("products", "1=1"); // Cambiar $data por $productos
+        $productos = $producto->mostrar("productos", "1=1"); // Cambiar $data por $productos
         require_once("vista/index.php");
     }
 
