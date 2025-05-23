@@ -1,3 +1,3 @@
-<? php
-define("urlsite","http://localhost/productos-MVC/");
+<?php
+define("urlsite", "http://localhost/productos-MVC/");
 ?>
