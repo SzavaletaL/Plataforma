@@ -1,54 +1,73 @@
 <?php
 class Modelo
 {
-    // Atributos de la clase
-    private $Modelo;
     private $db;
-    private $datos;
 
-    // Constructor
     public function __construct()
     {
-        $this->Modelo = array();
-        $this->db = new PDO('mysql:host=dataepis.uandina.pe:49206;dbname=BDProductos', "luissalas", "luissalas2025");
-        $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $this->db = new PDO(
+            'mysql:host=dataepis.uandina.pe:49206;dbname=BDProductos;charset=utf8',
+            "luissalas",
+            "luissalas2025",
+            [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_EMULATE_PREPARES => false,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+            ]
+        );
     }
 
-    // Método para insertar datos
-    public function insertar($tabla, $data)
+    public function insertar($tabla, $datos)
     {
-        $consulta = "INSERT INTO " . $tabla . " VALUES(null, " . $data . ")";
-        $resultado = $this->db->query($consulta);
-        return $resultado ? true : false;
+        try {
+            $campos = implode(', ', array_keys($datos));
+            $placeholders = ':' . implode(', :', array_keys($datos));
+
+            $stmt = $this->db->prepare("INSERT INTO $tabla ($campos) VALUES ($placeholders)");
+            return $stmt->execute($datos);
+        } catch (PDOException $e) {
+            error_log("Error en inserción: " . $e->getMessage());
+            return false;
+        }
     }
 
-    // Método para mostrar datos
-public function mostrar($tabla, $condicion = '1')
-{
-    $consul = "SELECT * FROM $tabla WHERE $condicion";
-    $resu = $this->db->query($consul);
-    return $resu->fetchAll(PDO::FETCH_ASSOC);
-}
-
-
-    // Método para actualizar datos
-    public function actualizar($tabla, $data, $condicion)
+    public function mostrar($tabla, $condicion = '1', $parametros = [])
     {
-    $consulta = "UPDATE $tabla SET $data WHERE $condicion";
-    $stmt = $this->db->prepare($consulta);
-
-    foreach ($valores as $campo => $valor) {
-        $stmt->bindValue(':' . $campo, $valor);
+        try {
+            $stmt = $this->db->prepare("SELECT * FROM $tabla WHERE $condicion");
+            $stmt->execute($parametros);
+            return $stmt->fetchAll();
+        } catch (PDOException $e) {
+            error_log("Error en consulta: " . $e->getMessage());
+            return [];
+        }
     }
 
-    return $stmt->execute();
-}
-
-    // Método para eliminar datos
-    public function eliminar($tabla, $condicion)
+    public function actualizar($tabla, $datos, $condicion, $parametros = [])
     {
-        $eli = "DELETE FROM " . $tabla . " WHERE " . $condicion;
-        $res = $this->db->query($eli);
-        return $res ? true : false;
+        try {
+            $campos = [];
+            foreach ($datos as $campo => $valor) {
+                $campos[] = "$campo = :$campo";
+            }
+            $set = implode(', ', $campos);
+
+            $stmt = $this->db->prepare("UPDATE $tabla SET $set WHERE $condicion");
+            return $stmt->execute(array_merge($datos, $parametros));
+        } catch (PDOException $e) {
+            error_log("Error en actualización: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function eliminar($tabla, $condicion, $parametros = [])
+    {
+        try {
+            $stmt = $this->db->prepare("DELETE FROM $tabla WHERE $condicion");
+            return $stmt->execute($parametros);
+        } catch (PDOException $e) {
+            error_log("Error en eliminación: " . $e->getMessage());
+            return false;
+        }
     }
 }
